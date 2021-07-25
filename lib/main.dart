@@ -26,16 +26,14 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
 
-  List scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
+  List<Icon> scoreKeeper = [];
+  List<String> questions =[
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
   ];
+
+  int questionNo=0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNo],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -63,11 +61,9 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: ElevatedButton(
-              style:  ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 primary: Colors.green,
-
               ),
-
               child: Text(
                 'True',
                 style: TextStyle(
@@ -77,6 +73,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                setState(
+                  () {
+                    scoreKeeper.add(
+                      Icon(Icons.check, color: Colors.green),
+                    );
+                    questionNo++;
+                  },
+                );
               },
             ),
           ),
@@ -85,10 +89,9 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: ElevatedButton(
-            style:  ElevatedButton.styleFrom(
-              primary: Colors.red,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
               ),
-
               child: Text(
                 'False',
                 style: TextStyle(
@@ -98,6 +101,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                setState(
+                        () {
+                      scoreKeeper.add(
+                        Icon(Icons.close, color: Colors.red),
+                      );
+                      questionNo++;
+                    },
+                );
               },
             ),
           ),
@@ -105,7 +116,6 @@ class _QuizPageState extends State<QuizPage> {
         Row(
           children: scoreKeeper,
         )
-
       ],
     );
   }
@@ -116,3 +126,7 @@ question1: 'You can lead a cow down stairs but not up stairs.', false,
 question2: 'Approximately one quarter of human bones are in the feet.', true,
 question3: 'A slug\'s blood is green.', true,
 */
+
+// to find list index : - print(myList.indexOf(element name));
+// to add element name at specific index number:-- myList.insert(index no, 'element name');
+
