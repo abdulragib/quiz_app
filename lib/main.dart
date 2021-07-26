@@ -25,15 +25,16 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-
   List<Icon> scoreKeeper = [];
-  List<String> questions =[
+  List<String> questions = [
     'You can lead a cow down stairs but not up stairs.',
     'Approximately one quarter of human bones are in the feet.',
     'A slug\'s blood is green.',
   ];
 
-  int questionNo=0;
+  List<bool> answers = [false, true, true];
+
+  int questionNo = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +74,16 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+
+                bool correctAnswer = answers[questionNo];
+                if (correctAnswer == true) {
+                  print("user got it right");
+                } else {
+                  print("user got it wrong");
+                }
+
                 setState(
                   () {
-                    scoreKeeper.add(
-                      Icon(Icons.check, color: Colors.green),
-                    );
                     questionNo++;
                   },
                 );
@@ -101,13 +107,17 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+
+                bool correctAnswer = answers[questionNo];
+                if (correctAnswer == false) {
+                  print("user got it right");
+                } else {
+                  print("user got it wrong");
+                }
                 setState(
-                        () {
-                      scoreKeeper.add(
-                        Icon(Icons.close, color: Colors.red),
-                      );
-                      questionNo++;
-                    },
+                  () {
+                    questionNo++;
+                  },
                 );
               },
             ),
@@ -129,4 +139,3 @@ question3: 'A slug\'s blood is green.', true,
 
 // to find list index : - print(myList.indexOf(element name));
 // to add element name at specific index number:-- myList.insert(index no, 'element name');
-
