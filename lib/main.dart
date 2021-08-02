@@ -34,11 +34,38 @@ class _QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
+      if (questionNo == 14) {
+        // alter box showing after reaching 15 question
+        Alert(
+          title: "Alert",
+          desc: "All question Completed",
+          context: context,
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Go to Q.1",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+        questionNo = 0;
+      }
+
+      if (scoreKeeper.length == 15) {
+        // remove all icon in scorekeepper after reaching icon to 15 icons
+        scoreKeeper.removeRange(0, 15);
+      }
+
       if (userPickedAnswer == correctAnswer) {
+        // validating answer wheather it is true or false
         scoreKeeper.add(Icon(Icons.check, color: Colors.green));
       } else {
         scoreKeeper.add(Icon(Icons.close, color: Colors.red));
       }
+      quizBrain.nextQuestion();
     });
   }
 
